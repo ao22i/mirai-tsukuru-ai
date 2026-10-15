@@ -1258,62 +1258,64 @@
       }
     }
 
-    // フォーム送信（Googleスプレッドシート / GASへ直接送信）
-    async function handleFormSubmit(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      const btnText = document.getElementById('btnText');
-      const toast = document.getElementById('formSuccessToast');
-      if (!btn || !btnText) return;
+   // フォーム送信（Googleスプレッドシート / GASへ直接送信）
+async function handleFormSubmit(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+  const toast = document.getElementById('formSuccessToast');
+  
+  if (!btn || !btnText) return;
 
-      // 各入力値を取得
-      const name = document.getElementById('form-name')?.value || '';
-      const email = document.getElementById('form-email')?.value || '';
-      const company = document.getElementById('form-company')?.value || '個人';
-      const message = document.getElementById('form-message')?.value || '';
+  // 送信データ（payload）を作成
+  const name = document.getElementById('form-name')?.value || '';
+  const email = document.getElementById('form-email')?.value || '';
+  const company = document.getElementById('form-company')?.value || '個人';
+  const message = document.getElementById('form-message')?.value || '';
 
-      // 選択中のジャンル（トピック）を取得
-      const activeTopics = [];
-      document.querySelectorAll('.topic-btn.bg-orange-50').forEach(el => {
-        activeTopics.push(el.innerText.trim());
+  const activeTopics = [];
+  document.querySelectorAll('.topic-btn.bg-orange-50').forEach(el => {
+    activeTopics.push(el.innerText.trim());
+  });
+
+  const payload = {
+    name: name,
+    email: email,
+    company: company,
+    topics: activeTopics,
+    message: message
+  };
+
+  const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx_8wBKT3bkepqkor4XX_5vci6_Z4CaEjhXIuFHfcmwFuaTHTg4KDmuE6CrlPM1gZw4/exec';
+
+  btn.disabled = true;
+  btnText.innerText = '送信中...';
+
+  try {
+    if (GAS_WEB_APP_URL) {
+      await fetch(GAS_WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
-
-      const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx_8wBKT3bkepqkor4XX_5vci6_Z4CaEjhXIuFHfcmwFuaTHTg4KDmuE6CrlPM1gZw4/exec';
-
-      btn.disabled = true;
-      btnText.innerText = '送信中...';
-
-      try {
-        if (GAS_WEB_APP_URL) {
-          // Google Apps Script Web AppへPOST送信 (CORS対策のため mode: 'no-cors' を指定)
-          await fetch(GAS_WEB_APP_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          });
-        } else {
-          // GAS URL未設定時はシミュレーション待機（800ms）
-          await new Promise(r => setTimeout(r, 800));
-          console.info('💡 [GAS未設定デモ]: GAS_WEB_APP_URL にURLを設定するとGoogleスプレッドシートへ自動保存されます。', payload);
-        }
-
-        toast?.classList.remove('hidden');
-        document.getElementById('contactForm')?.reset();
-        btnText.innerText = '送信完了いたしました（原則24時間以内に返信）';
-        lucide.createIcons();
-      } catch (err) {
-        console.error('GAS送信エラー:', err);
-        // エラー時もユーザーには送信完了案内を表示（または再試行）
-        toast?.classList.remove('hidden');
-        btnText.innerText = '送信完了いたしました（原則24時間以内に返信）';
-      } finally {
-        setTimeout(() => {
-          btn.disabled = false;
-          btnText.innerText = '無料相談を申し込む（原則24時間以内に返信）';
-        }, 5000);
+    }
+    
+    toast?.classList.remove('hidden');
+    document.getElementById('contactForm')?.reset();
+    btnText.innerText = '送信完了いたしました';
+    if (window.lucide) lucide.createIcons();
+  } catch (err) {
+    console.error('GAS送信エラー:', err);
+    toast?.classList.remove('hidden');
+  } finally {
+    setTimeout(() => {
+      btn.disabled = false;
+      btnText.innerText = '無料相談を申し込む（原則24時間以内に返信）';
+    }, 5000);
+  }
+}
       }
     }
   </script>
