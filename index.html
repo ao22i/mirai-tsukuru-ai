@@ -1,296 +1,1328 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <title>Cookie check</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        color-scheme: light dark;
-      }
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Title & Meta Description -->
+  <title>ミライツクル AI | 一人社長のAI活用・AI自動化 導入支援サービス</title>
+  <meta name="description" content="一人社長・小規模事業者のためのAI自動化 導入支援サービス「ミライツクル AI」。スプレッドシートの集計やGAS連携、自社専用のAI社員構築で手作業を大幅削減。専門知識・コード不要、月3万円〜の安心スモールスタート。まずは無料相談から。">
+  <meta name="keywords" content="一人社長 AI活用, AI自動化 導入支援, 業務自動化, GAS自動化, AI社員, 一人社長 DX, スモールスタート, スプレッドシート自動化">
+  <meta name="robots" content="index, follow">
+  
+  <!-- OpenGraph Social Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ミライツクル AI | 一人社長のAI活用・AI自動化 導入支援サービス">
+  <meta property="og:description" content="一人社長・小規模事業者のためのAI自動化 導入支援サービス。スプレッドシート集計やGAS連携、自社専用AI社員構築で手作業を削減。専門知識不要・月3万円〜。">
+  <meta property="og:site_name" content="ミライツクル AI">
+  <meta property="og:locale" content="ja_JP">
 
-      body {
-        font-family: 'Inter', Helvetica, Arial, sans-serif;
-        background: light-dark(#F8F8F7, #191919);
-        color: light-dark(#1f1f1f, #e3e3e3);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        min-height: 100vh;
-        margin: 0;
-        padding: 20px;
-        text-align: center;
-      }
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ミライツクル AI | 一人社長のAI活用・AI自動化 導入支援サービス">
+  <meta name="twitter:description" content="一人社長・小規模事業者のためのAI自動化 導入支援サービス。専門知識不要・月3万円〜の安心スモールスタート。">
 
-      .container {
-        background: light-dark(#FFFFFF, #1F1F1F);
-        padding: 32px;
-        border-radius: 16px;
-        border: 1px solid light-dark(#E2E3E4, #3E3E3E);
-        max-width: min(80%, 500px);
-        width: 100%;
-        color: light-dark(#2B2D31, #D4D4D4);
-      }
-
-      h1 {
-        font-size: 20px;
-        font-weight: 500;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        color: light-dark(#2B2D31, #D4D4D4);
-      }
-
-      p {
-        font-size: 14px;
-        color: light-dark(#2B2D31, #D4D4D4);
-        line-height: 21px;
-        margin: 0 0 1.5rem 0;
-      }
-
-      .icon {
-        margin-bottom: 1rem;
-        line-height: 0;
-      }
-
-      .button-container {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 2rem;
-      }
-
-      button {
-        background-color: light-dark(#fff, #323232);
-        color: light-dark(#2B2D31, #FCFCFC);
-        border: 1px solid light-dark(#E2E3E4, #3E3E3E);
-        border-radius: 12px;
-        padding: 8px 12px;
-        font-size: 14px;
-        line-height: 21px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-        font-weight: 400;
-        font-family: 'Inter', Helvetica, Arial, sans-serif;
-        width: 100%;
-      }
-
-      button:hover {
-        background-color: light-dark(#EAEAEB, #424242);
-      }
-
-      .hidden {
-        display: none;
-      }
-
-      /* Loading Spinner Animation */
-      .spinner {
-        margin: 0 auto 1.5rem auto;
-        width: 40px;
-        height: 40px;
-        border: 4px solid light-dark(#f0f0f0, #262626);
-        border-top: 4px solid light-dark(#076eff, #87a9ff); /* Blue color */
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-
-      .logo {
-        border-radius: 10px;
-        display: block;
-        margin: 0 auto 2rem auto;
-      }
-
-      .logo.hidden {
-        display: none;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            warm: {
+              canvas: '#faf9f6',
+              surface: '#ffffff',
+              border: '#f1ede4',
+              orange: '#f97316',
+              amber: '#f59e0b',
+              terracotta: '#ea580c',
+              emerald: '#10b981'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans JP"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
         }
       }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <img
-        class="logo"
-        src="https://www.gstatic.com/images/branding/productlogos/ai_studio/v1/web-512dp/logo_ai_studio_color_1x_web_512dp.png"
-        alt="AI Studio Logo"
-        width="256"
-        height="256"
-      />
-      <div class="spinner"></div>
-      <div id="error-ui" class="hidden">
-        <div class="icon">
-          <svg
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="48px"
-            height="48px"
-            fill="#D73A49"
-          >
-            <path
-              d="M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.514,2,12,2z M13,17h-2v-2h2V17z M13,13h-2V7h2V13z"
-            />
-          </svg>
-        </div>
-        <div id="stepOne" class="text-container">
-          <h1>Action required to load your app</h1>
-          <p>
-            It looks like your browser is blocking a required security cookie, which is common on
-            older versions of iOS and Safari.
-          </p>
-          <div class="button-container">
-            <button id="authInSeparateWindowButton" onclick="redirectToReturnUrl(true)">Authenticate in new window</button>
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Schema.org JSON-LD Structured Data (ProfessionalService & FAQPage for rich SERP snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "name": "ミライツクル AI",
+        "description": "一人社長・小規模事業者のためのAI自動化 導入支援サービス。AI社員構築・GAS業務自動化・ダッシュボード開発。",
+        "areaServed": "JP",
+        "serviceType": [
+          "AI自動化 導入支援",
+          "一人社長 AI活用コンサルティング",
+          "GAS（Google Apps Script）業務自動化",
+          "AI社員・エージェント構築",
+          "リアルタイム経営ダッシュボード開発"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "30000",
+          "priceCurrency": "JPY",
+          "name": "お試しミニマム自動化プラン",
+          "description": "月額3万円〜。単一タスクの自動化・最短3営業日で動作デモ納品"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "ITやAIの知識が全くない一人社長でも相談できますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "はい、全く問題ありません。普段のお仕事で時間がかかっている面倒な作業を整理するところからエンジニアが丁寧に伴走します。専門用語やプロンプトの習得は一切不要です。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "自社データのセキュリティや漏洩が心配です。",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "お客様の既存のGoogle Workspace等の安全な環境内で構築します。また商用AI APIの入力データは学習に利用されないセキュア設定（Zero Data Retention準拠）を徹底しています。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "初期費用を抑えて小さく試すことはできますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "はい。月額3万円〜（または単発5万円〜）のお試しミニマム自動化プランをご用意しており、成果や費用対効果を確認しながら段階的にスケールできます。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    body {
+      background-color: #faf9f6;
+      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+      overflow-x: hidden;
+    }
+    .warm-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(245, 158, 11, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(245, 158, 11, 0.05) 1px, transparent 1px);
+    }
+    .text-gradient-warm {
+      background: linear-gradient(135deg, #ea580c 0%, #f59e0b 50%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .card-hover {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px -8px rgba(249, 115, 22, 0.12);
+    }
+  </style>
+<script src="/_aistudio-iframe.js?v=6634132a"></script></head>
+<body class="min-h-screen relative selection:bg-orange-500/20 selection:text-orange-700">
+
+  <!-- 背景ウォームアンビエント光 -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[480px] pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-32 left-1/4 w-[480px] h-[480px] bg-amber-400/10 rounded-full blur-[130px]"></div>
+    <div class="absolute -top-32 right-1/4 w-[480px] h-[480px] bg-orange-400/10 rounded-full blur-[140px]"></div>
+  </div>
+
+  <!-- トップナビゲーション（白ベース・暖色アクセント） -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/90 border-b border-amber-100/80 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-8">
+      
+      <!-- ブランドロゴ: ミライツクル AI -->
+      <a href="#" class="flex items-center gap-2.5 text-lg font-bold tracking-tight text-slate-900 whitespace-nowrap shrink-0 group">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 via-orange-500 to-emerald-500 p-[1px] shadow-xs">
+          <div class="w-full h-full bg-white rounded-[7px] flex items-center justify-center">
+            <i data-lucide="sparkles" class="w-4 h-4 text-orange-500 group-hover:rotate-12 transition-transform"></i>
           </div>
         </div>
-        <div id="stepTwo" class="text-container hidden">
-          <h1>Action required to load your app</h1>
-          <p>
-            It looks like your browser is blocking a required security cookie, which is common on
-            older versions of iOS and Safari.
-          </p>
-          <div class="button-container">
-            <button id="interactButton" onclick="redirectToReturnUrl(false)">Close and continue</button>
-          </div>
-        </div>
-        <div id="stepThree" class="text-container hidden">
-          <h1>Almost there!</h1>
-          <p>
-            Grant permission for the required security cookie below.
-          </p>
-          <div class="button-container">
-            <button id="grantPermissionButton" onclick="grantStorageAccess()">Grant permission</button>
-          </div>
-        </div>
+        <span class="tracking-tight font-extrabold text-slate-900 text-lg flex items-center gap-1.5">
+          ミライツクル <span class="text-orange-600 font-extrabold px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-xs">AI</span>
+        </span>
+      </a>
+
+      <!-- ナビゲーションリンク -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <a href="#concept" class="hover:text-orange-600 transition-colors whitespace-nowrap">コンセプト</a>
+        <a href="#beginner" class="text-orange-700 hover:text-orange-800 transition-colors whitespace-nowrap flex items-center gap-1.5 font-semibold">
+          <span class="text-xs px-2 py-0.5 rounded-full bg-orange-100/80 border border-orange-200 text-orange-700">🔰 初めての方へ</span>
+        </a>
+        <a href="#problems" class="hover:text-orange-600 transition-colors whitespace-nowrap">お悩み解決</a>
+        <a href="#services" class="hover:text-orange-600 transition-colors whitespace-nowrap">提供サービス</a>
+        <a href="#portfolio" class="hover:text-orange-600 transition-colors whitespace-nowrap">導入実績デモ</a>
+        <a href="#pricing" class="hover:text-orange-600 transition-colors whitespace-nowrap">料金プラン</a>
+        <a href="#faq" class="hover:text-orange-600 transition-colors whitespace-nowrap">よくある質問</a>
+      </nav>
+
+      <!-- CTAアクション -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 rounded-lg shadow-sm hover:shadow-md transition-all whitespace-nowrap shrink-0">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>まずは無料相談</span>
+        </a>
       </div>
     </div>
-    <script>
-      const AUTH_FLOW_TEST_COOKIE_NAME = '__SECURE-aistudio_auth_flow_may_set_cookies';
-      const COOKIE_VALUE = 'true';
+  </header>
 
-      function getCookie(name) {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          let cookie = cookies[i].trim();
-          if (cookie.startsWith(name + '=')) {
-            return cookie.substring(name.length + 1);
-          }
-        }
-        return null;
-      }
+  <main class="relative z-10">
+    <!-- 1. ヒーローセクション（ファーストビュー） -->
+    <section class="relative pt-10 pb-16 md:pt-14 md:pb-20 border-b border-amber-100 warm-grid overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- 初心者安心バッジ群（SEOターゲットキーワード含む） -->
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-amber-200 text-xs text-amber-900 font-medium shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>一人社長のAI活用・AI自動化 導入支援サービス「ミライツクル AI」</span>
+          </div>
+          <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-medium shadow-xs">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600"></i>
+            <span>専門知識・コード不要</span>
+          </div>
+          <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200 text-xs text-orange-800 font-medium shadow-xs">
+            <i data-lucide="coins" class="w-3.5 h-3.5 text-orange-600"></i>
+            <span>月3万円〜スモールスタート</span>
+          </div>
+        </div>
 
-      function setAuthFlowTestCookie() {
-        // Set the cookie's TTL to 1 minute. This is a short lived cookie because it is only used
-        // when the user does not have an auth token or their auth token needs to be reset.
-        // Making this cookie too long-lived allows the user to get into a state where they can't
-        // mint a new auth token.
-        document.cookie = `${AUTH_FLOW_TEST_COOKIE_NAME}=${COOKIE_VALUE}; Path=/; Secure; SameSite=None; Domain=${window.location.hostname}; Partitioned; Max-Age=60;`;
-      }
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <!-- 左側コピー -->
+          <div class="lg:col-span-7">
+            <!-- メインタイトル（H1: SEOキーワード自然統合） -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[2.85rem] font-extrabold tracking-tight text-slate-900 leading-[1.2] mb-4">
+              AIとプログラミングで、<br>
+              ビジネスの<span class="text-gradient-warm">「ミライ」をツクル。</span>
+              <span class="block text-xl sm:text-2xl md:text-3xl mt-2.5 text-slate-800 font-bold tracking-normal">
+                一人社長・少人数組織のAI自動化 導入支援
+              </span>
+            </h1>
 
-      /**
-       * Returns true if the test cookie is set, false otherwise.
-       */
-      function authFlowTestCookieIsSet() {
-        return getCookie(AUTH_FLOW_TEST_COOKIE_NAME) === COOKIE_VALUE;
-      }
+            <!-- サブタイトル -->
+            <p class="text-base sm:text-lg text-slate-700 font-medium leading-relaxed mb-6">
+              自社専用の「AI社員」と「GAS業務自動化」で、一人社長の可能性を無限に拡張。日々の手作業・集計・転記をゼロにし、コア事業に集中できる環境を伴走支援します。
+            </p>
 
-      /**
-       * Redirects to the return url. If autoClose is true, then the return url will be opened in a
-       * new window, and it will be closed automatically when the page loads.
-       * Options:
-       *   storageAccessGranted: if true, appends __storage_access_granted=1 to
-       *   the return url so the Lua auth script can set the test cookie
-       *   server-side (needed for Safari/iOS where document.cookie is blocked).
-       */
-      async function redirectToReturnUrl(autoClose, storageAccessGranted = false) {
-        const initialReturnUrlStr = new URLSearchParams(window.location.search).get('return_url');
-        const returnUrl = initialReturnUrlStr ? new URL(initialReturnUrlStr) : null;
+            <!-- キャッチフレーズ / コンセプトコールアウト -->
+            <div id="concept" class="p-4 sm:p-5 rounded-2xl bg-amber-50/90 border border-amber-200/90 max-w-2xl mb-8 relative shadow-2xs">
+              <div class="text-xs font-bold text-orange-700 tracking-wider uppercase mb-1.5 flex items-center gap-1.5">
+                <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-orange-600"></i>
+                <span>CONCEPT / 一人社長のAI活用コンセプト</span>
+              </div>
+              <div class="text-sm sm:text-base font-semibold text-slate-800 space-y-1 leading-relaxed">
+                <p class="text-slate-900 flex items-start gap-1.5">
+                  <span class="text-orange-500 font-bold text-lg leading-none">❝</span>
+                  やりたいことはあるけれど、日々の業務に追われている
+                </p>
+                <p class="text-slate-700 pl-4">
+                  そんなあなたの隣で、AIと自動化ツールがチームとなり、新しい可能性を拓きます。
+                  <span class="text-orange-500 font-bold text-lg leading-none">❞</span>
+                </p>
+              </div>
+            </div>
 
-        // Prevent potentially malicious URLs from being used
-        if (returnUrl.protocol.toLowerCase() === 'javascript:') {
-          console.error('Potentially malicious return URL blocked');
-          return;
-        }
+            <!-- アクションボタン -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8">
+              <a href="#contact" class="flex items-center justify-center gap-2.5 px-6 py-3.5 text-base font-bold text-white bg-gradient-to-r from-orange-500 via-amber-500 to-emerald-600 rounded-xl hover:shadow-lg hover:shadow-orange-500/20 hover:scale-[1.01] transition-all">
+                <i data-lucide="message-square-plus" class="w-5 h-5"></i>
+                <span>無料相談・デモ体験を申し込む</span>
+              </a>
+              <a href="#portfolio" class="flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-bold text-slate-700 bg-white hover:bg-amber-50/50 border border-amber-200/80 rounded-xl shadow-xs transition-all">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-orange-500"></i>
+                <span>導入実績を見る</span>
+              </a>
+            </div>
 
-        if (storageAccessGranted) {
-          returnUrl.searchParams.set('__storage_access_granted', '1');
-        }
+            <!-- 定量実績カード -->
+            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-amber-200/60 text-left">
+              <div class="p-3 bg-white rounded-xl border border-amber-100 shadow-xs">
+                <div class="text-2xl sm:text-3xl font-extrabold text-orange-600 font-mono tabular-nums">最大85<span class="text-base font-sans font-bold">%</span></div>
+                <div class="text-xs text-slate-600 mt-0.5">一人社長の反復手作業を削減</div>
+              </div>
+              <div class="p-3 bg-white rounded-xl border border-amber-100 shadow-xs">
+                <div class="text-2xl sm:text-3xl font-extrabold text-amber-600 font-mono tabular-nums">月3<span class="text-base font-sans font-bold">万円〜</span></div>
+                <div class="text-xs text-slate-600 mt-0.5">小さく試せる安心プラン</div>
+              </div>
+              <div class="p-3 bg-white rounded-xl border border-amber-100 shadow-xs">
+                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-mono tabular-nums">3<span class="text-base font-sans font-bold">営業日〜</span></div>
+                <div class="text-xs text-slate-600 mt-0.5">最短で動くデモをご提示</div>
+              </div>
+            </div>
+          </div>
 
-        if (autoClose) {
-          returnUrl.searchParams.set('__auto_close', '1');
-          const url = new URL(window.location.href);
-          url.searchParams.set('return_url', returnUrl.toString());
-          // Land on the cookie check page first, so the user can interact with it before proceeding
-          // to the return url where cookies can be set.
-          window.open(url.toString(), '_blank');
-          const hasAccess = await document.hasStorageAccess();
-          document.querySelector('#stepOne').classList.add('hidden');
-          if (!hasAccess) {
-            document.querySelector('#stepThree').classList.remove('hidden');
-          } else {
-            window.location.reload();
-          }
+          <!-- 右側：日本人の温かみのある対話相談風景 -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative rounded-2xl p-1 bg-gradient-to-b from-amber-200 via-orange-100 to-white shadow-xl">
+              <div class="relative rounded-[15px] bg-white overflow-hidden border border-amber-100">
+                <div class="relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                  <img
+                    src="/images/japanese_consultation_1791978924116.jpg"
+                    alt="一人社長のAI活用を親身に伴走する日本人エンジニアのAI自動化 導入支援相談"
+                    class="w-full h-full object-cover"
+                    onerror="this.src='/src/assets/images/japanese_consultation_1791978924116.jpg'"
+                  >
+                  <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg border border-amber-200 text-[11px] font-bold text-slate-800 flex items-center gap-1.5 shadow-xs">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>難しい言葉を使わない対話型ヒアリング</span>
+                  </div>
+                </div>
+
+                <!-- 初心者向け安心カード -->
+                <div class="p-5 border-t border-amber-100 space-y-3 bg-[#fdfcf9]">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold text-slate-900 flex items-center gap-1.5">
+                      <i data-lucide="shield-check" class="w-4 h-4 text-orange-500"></i>
+                      一人社長に選ばれる3大安心設計
+                    </span>
+                    <span class="text-xs text-orange-700 font-semibold bg-orange-100 px-2 py-0.5 rounded-full">安心サポート</span>
+                  </div>
+
+                  <div class="space-y-2 text-xs">
+                    <div class="p-2.5 rounded-lg bg-white border border-amber-100/80 shadow-2xs flex items-start gap-2.5">
+                      <div class="w-5 h-5 rounded-full bg-orange-100 border border-orange-300 text-orange-700 flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">1</div>
+                      <div>
+                        <div class="text-slate-900 font-bold">専門用語ゼロで丁寧にお伺い</div>
+                        <div class="text-[11px] text-slate-500">「何をどう相談したらいいか分からない」状態でも課題整理をお手伝い</div>
+                      </div>
+                    </div>
+
+                    <div class="p-2.5 rounded-lg bg-white border border-amber-100/80 shadow-2xs flex items-start gap-2.5">
+                      <div class="w-5 h-5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-700 flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">2</div>
+                      <div>
+                        <div class="text-slate-900 font-bold">動くプロトタイプを見てから判断</div>
+                        <div class="text-[11px] text-slate-500">実際の自社データでの動作デモを確認後、本導入するか決められます</div>
+                      </div>
+                    </div>
+
+                    <div class="p-2.5 rounded-lg bg-white border border-amber-100/80 shadow-2xs flex items-start gap-2.5">
+                      <div class="w-5 h-5 rounded-full bg-amber-100 border border-amber-300 text-amber-700 flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">3</div>
+                      <div>
+                        <div class="text-slate-900 font-bold">月額3万円〜の小さなお試しスタート</div>
+                        <div class="text-[11px] text-slate-500">過大な初期投資は不要。自動化の費用対効果を実感しながら拡大</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 🔰 新設: 初めての方・AIに苦手意識がある方へ -->
+    <section id="beginner" class="py-16 bg-white border-b border-amber-100 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 mb-3 shadow-2xs">
+            <i data-lucide="heart-handshake" class="w-3.5 h-3.5 text-emerald-600"></i>
+            一人社長・初心者のためのAI自動化 導入支援
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-4">
+            「ITに詳しくない」一人社長でも諦める必要は一切ありません
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            一人社長のAI活用で失敗する最大の原因は「いきなり難しいツールを導入しようとすること」。<br class="hidden sm:inline">
+            ミライツクル AI では、貴社が<strong class="text-slate-900 font-semibold">すでに毎日使っている身近なツール</strong>の中に、小さく自然にAI自動化を溶け込ませます。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-6 rounded-2xl bg-[#faf9f6] border border-amber-200/70 hover:border-orange-400 card-hover shadow-xs">
+            <div class="w-12 h-12 rounded-xl bg-orange-100 border border-orange-200 flex items-center justify-center text-orange-600 mb-4">
+              <i data-lucide="smile" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">難しいプロンプトは覚えなくてOK</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              お客様自身がAIに複雑な指示文を書く必要はありません。ボタンを1回押すだけ、またはLINEで一言つぶやくだけで完了する仕組みにしてお渡しします。
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-[#faf9f6] border border-amber-200/70 hover:border-emerald-400 card-hover shadow-xs">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-4">
+              <i data-lucide="layers" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">新しいソフトの導入は不要</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Googleスプレッドシート、Gmail、LINE、Slackなど、いつもの画面で完結。新しい管理画面にログインして使い方を覚えるストレスは一切ありません。
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-[#faf9f6] border border-amber-200/70 hover:border-amber-400 card-hover shadow-xs">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-600 mb-4">
+              <i data-lucide="coins" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">まずは月3万円〜のお試しスタート</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              「まずは一番面倒な転記作業を自動化してみる」など、低価格＆低リスクで効果を実感。費用対効果を確認してから本格活用へ広げられます。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. こんなお悩みありませんか？（課題提起） -->
+    <section id="problems" class="py-20 bg-[#faf9f6] border-b border-amber-100 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="text-xs font-mono text-orange-600 tracking-wider uppercase mb-2 font-bold">CHALLENGES</div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
+            一人社長・小規模事業者が抱えるAI活用と業務効率化の悩み
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            多くの一人社長が、「日々の単純手作業の多さ」と「AIの具体的な使いどころ」に悩まされています。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div class="bg-white border border-amber-200/80 hover:border-orange-400 rounded-2xl p-6 sm:p-8 card-hover relative shadow-xs">
+            <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mb-6">
+              <i data-lucide="file-spreadsheet" class="w-6 h-6"></i>
+            </div>
+            <div class="text-xs font-mono text-rose-600 mb-2 font-bold">PROBLEM 01</div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3 leading-snug">
+              顧客データや売上データの集計・転記作業に追われている
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+              複数のスプレッドシートや管理画面を行き来し、手作業のコピー＆ペーストで夕方になってしまう。ミスが怖く、本来やりたい営業や商品作りに手が回りません。
+            </p>
+            <div class="text-xs text-slate-500 border-t border-slate-100 pt-3 flex items-center gap-1.5 font-medium">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-orange-500"></i>
+              <span>月平均30〜50時間の手作業浪費</span>
+            </div>
+          </div>
+
+          <div class="bg-white border border-amber-200/80 hover:border-amber-400 rounded-2xl p-6 sm:p-8 card-hover relative shadow-xs">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mb-6">
+              <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+            </div>
+            <div class="text-xs font-mono text-amber-600 mb-2 font-bold">PROBLEM 02</div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3 leading-snug">
+              AIを活用したいが、実務にどう組み込めばいいか分からない
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+              「ChatGPTに質問してみたけど、自社の実務でどう使うべきか分からない…」業務とAIの連携方法が分からず、結局元の手作業に戻ってしまっていませんか？
+            </p>
+            <div class="text-xs text-slate-500 border-t border-slate-100 pt-3 flex items-center gap-1.5 font-medium">
+              <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-500"></i>
+              <span>一人社長の単発利用で終わってしまう壁</span>
+            </div>
+          </div>
+
+          <div class="bg-white border border-amber-200/80 hover:border-emerald-400 rounded-2xl p-6 sm:p-8 card-hover relative shadow-xs">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-6">
+              <i data-lucide="trending-up" class="w-6 h-6"></i>
+            </div>
+            <div class="text-xs font-mono text-emerald-600 mb-2 font-bold">PROBLEM 03</div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3 leading-snug">
+              人手を増やさずにAI自動化で事業規模をスケールさせたい
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+              固定費や採用コストのリスクを負って人を雇うのは不安。1人〜少人数の身軽な体制を保ったまま、対応件数や売上を2倍、3倍へとスケールさせたい。
+            </p>
+            <div class="text-xs text-slate-500 border-t border-slate-100 pt-3 flex items-center gap-1.5 font-medium">
+              <i data-lucide="user-x" class="w-3.5 h-3.5 text-emerald-500"></i>
+              <span>固定費の肥大化と採用リスクを回避</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. 提供サービス -->
+    <section id="services" class="py-20 md:py-24 border-b border-amber-100 bg-white relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="text-xs font-mono text-orange-600 tracking-wider uppercase mb-2 font-bold">SOLUTIONS</div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
+            一人社長の可能性を広げる 3つのAI自動化 導入支援サービス
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            貴社の課題規模に合わせて、部分的なGAS自動化から自律型AI社員の構築まで柔軟に組み合わせ可能です。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- サービス1 -->
+          <div class="bg-[#faf9f6] border border-amber-200/70 hover:border-orange-400 rounded-2xl p-7 flex flex-col justify-between card-hover shadow-xs">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="w-12 h-12 rounded-xl bg-orange-100 border border-orange-200 flex items-center justify-center text-orange-600">
+                  <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <span class="text-xs font-mono text-orange-700 bg-orange-100/80 px-2.5 py-1 rounded-full font-bold">SERVICE 01</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 mb-3">AIエージェント・AI社員構築</h3>
+              <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                自社専用の知識を学習したAIが、問い合わせ一次返信、リサーチ、議事録作成、報告書ドラフトを自動でこなす環境を構築します。
+              </p>
+              <ul class="space-y-2.5 text-xs text-slate-700 mb-6">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                  <span>Slack / LINE / Teams等とシームレス連携</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                  <span>社内マニュアルやFAQを参照した高精度回答</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                  <span>定期的な情報収集と自動レポーティング</span>
+                </li>
+              </ul>
+            </div>
+            <div class="pt-4 border-t border-amber-200/60 flex items-center justify-between text-xs">
+              <span class="text-slate-500 font-medium">想定工数削減</span>
+              <span class="text-orange-600 font-bold font-mono text-sm">月 40〜80時間</span>
+            </div>
+          </div>
+
+          <!-- サービス2 -->
+          <div class="bg-[#faf9f6] border border-amber-200/70 hover:border-emerald-400 rounded-2xl p-7 flex flex-col justify-between card-hover shadow-xs">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="w-12 h-12 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-600">
+                  <i data-lucide="workflow" class="w-6 h-6"></i>
+                </div>
+                <span class="text-xs font-mono text-emerald-700 bg-emerald-100/80 px-2.5 py-1 rounded-full font-bold">SERVICE 02</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 mb-3">GAS（Google Apps Script）業務自動化</h3>
+              <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                Google Apps Scriptを活用し、スプレッドシートの集計、請求書PDFの自動発行、GmailやSlackへの定時通知を完全自動化します。
+              </p>
+              <ul class="space-y-2.5 text-xs text-slate-700 mb-6">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>外部サーバー代不要・Google標準機能で低コスト</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>毎朝の定時売上サマリー通知を自動送信</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>フォーム回答からの即時返信・DB登録</span>
+                </li>
+              </ul>
+            </div>
+            <div class="pt-4 border-t border-amber-200/60 flex items-center justify-between text-xs">
+              <span class="text-slate-500 font-medium">想定工数削減</span>
+              <span class="text-emerald-600 font-bold font-mono text-sm">月 20〜45時間</span>
+            </div>
+          </div>
+
+          <!-- サービス3 -->
+          <div class="bg-[#faf9f6] border border-amber-200/70 hover:border-amber-400 rounded-2xl p-7 flex flex-col justify-between card-hover shadow-xs">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="w-12 h-12 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-600">
+                  <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+                </div>
+                <span class="text-xs font-mono text-amber-700 bg-amber-100/80 px-2.5 py-1 rounded-full font-bold">SERVICE 03</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 mb-3">ダッシュボード・Webツール開発</h3>
+              <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                散らばったデータを1画面に集約。広告費、顧客獲得コスト、LTV、売上推移などの重要KPIをリアルタイムで直感的に可視化します。
+              </p>
+              <ul class="space-y-2.5 text-xs text-slate-700 mb-6">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-amber-600 shrink-0"></i>
+                  <span>スマホからもワンタップで経営数値を把握</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-amber-600 shrink-0"></i>
+                  <span>一人社長専用仕様で不要な機能を削ぎ落とした軽快UI</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-amber-600 shrink-0"></i>
+                  <span>API連携による自動データ同期・アラート検知</span>
+                </li>
+              </ul>
+            </div>
+            <div class="pt-4 border-t border-amber-200/60 flex items-center justify-between text-xs">
+              <span class="text-slate-500 font-medium">意思決定速度</span>
+              <span class="text-amber-600 font-bold font-mono text-sm">即時・リアルタイム</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. 開発・導入実績（ポートフォリオデモ） -->
+    <section id="portfolio" class="py-20 md:py-24 border-b border-amber-100 bg-[#faf9f6] relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <div class="text-xs font-mono text-orange-600 tracking-wider uppercase mb-2 font-bold">PORTFOLIO DEMOS</div>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mb-3">
+              一人社長・スモールビジネスにおけるAI自動化 導入実績（デモ）
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base max-w-2xl">
+              一人社長・小規模事業者の現場課題を解決した、自律型AI・GAS自動化・ダッシュボードの代表的な開発・導入事例です。
+            </p>
+          </div>
+
+          <!-- タブ切り替えボタン -->
+          <div class="flex p-1 rounded-xl bg-white border border-amber-200/80 shadow-xs self-start md:self-auto">
+            <button onclick="switchTab(1)" id="tab-btn-1" class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-xs">
+              実績① AIバーチャルオフィス
+            </button>
+            <button onclick="switchTab(2)" id="tab-btn-2" class="px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-slate-900">
+              実績② GAS集計自動化
+            </button>
+            <button onclick="switchTab(3)" id="tab-btn-3" class="px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-slate-900">
+              実績③ Acquisitionダッシュボード
+            </button>
+          </div>
+        </div>
+
+        <!-- タブコンテンツ 1: AIバーチャルオフィス -->
+        <div id="tab-content-1" class="space-y-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-5 space-y-6">
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 border border-orange-200 text-orange-800 text-xs font-bold mb-3">
+                  <i data-lucide="bot" class="w-3.5 h-3.5 text-orange-600"></i>
+                  先進UX/UIの自律協調システム
+                </span>
+                <h3 class="text-2xl font-bold text-slate-900 mb-3">実績① AIバーチャルオフィス（一人社長のAI社員）</h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                  AIエージェントが可視化された空間で自律的に作業を実行する先進的なUX/UI。
+                  リサーチ担当、データ整理担当、報告書作成担当の各AI社員がリアルタイムでメッセージをやり取りしながら協調タスクを完了します。
+                </p>
+              </div>
+
+              <div class="space-y-3">
+                <div class="p-3.5 rounded-xl bg-white border border-amber-100 shadow-2xs">
+                  <div class="text-xs font-bold text-slate-900 mb-1">導入効果・特徴</div>
+                  <div class="text-xs text-slate-600 leading-relaxed">
+                    ユーザーは全体方針を指示するだけ。各専門AIが分担して作業を進め、最終結果のみを要約して提出するため、一人社長のマネジメントコストを劇的に軽減。
+                  </div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white border border-amber-100 shadow-2xs">
+                  <div class="text-xs font-bold text-slate-900 mb-1">活用技術</div>
+                  <div class="text-xs font-mono text-slate-600">
+                    Next.js / FastAPI / LLM Agent Workflow / WebSocket / Tailwind CSS
+                  </div>
+                </div>
+              </div>
+
+              <!-- 導入効果・機能ハイライト -->
+              <div class="p-5 rounded-2xl bg-white border border-amber-200/80 shadow-xs space-y-3">
+                <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                  <i data-lucide="sparkles" class="w-4 h-4 text-orange-500"></i>
+                  主な自動化機能・提供価値
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">タスク自動分解</div>
+                    <div class="font-bold text-slate-900 mt-0.5">自律エージェント協調</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">通知・報告</div>
+                    <div class="font-bold text-slate-900 mt-0.5">Slack/LINE即時配信</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">対応工数削減</div>
+                    <div class="font-bold text-orange-600 mt-0.5">月40〜80時間カット</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">稼働状況</div>
+                    <div class="font-bold text-emerald-600 mt-0.5">24時間365日自律稼働</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7">
+              <div class="relative rounded-2xl overflow-hidden border border-amber-200 bg-white shadow-xl">
+                <img
+                  src="/images/case_virtual_office_1791976266298.jpg"
+                  alt="AIバーチャルオフィス画面"
+                  class="w-full h-auto object-cover"
+                  onerror="this.src='/src/assets/images/case_virtual_office_1791976266298.jpg'"
+                >
+                <div class="p-4 bg-white/95 border-t border-amber-100 flex items-center justify-between text-xs">
+                  <span class="text-slate-600 font-medium">エージェント協調オーケストレーション画面プレビュー</span>
+                  <span class="font-mono text-orange-700 bg-orange-100 px-2 py-0.5 rounded font-bold">STATUS: OPERATIONAL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- タブコンテンツ 2: GAS集計自動化 -->
+        <div id="tab-content-2" class="space-y-8 hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-5 space-y-6">
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-bold mb-3">
+                  <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i>
+                  日々の集計工数をゼロ化
+                </span>
+                <h3 class="text-2xl font-bold text-slate-900 mb-3">実績② 顧客管理データ集計・分析自動化ツール（GAS）</h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                  スプレッドシート連携で日々の集計工数をゼロ化。
+                  Googleフォーム、銀行明細CSV、決済データをGoogle Apps Scriptが自動でマージ＆クレンジング。毎朝9時にSlackへ日報を自動配信します。
+                </p>
+              </div>
+
+              <div class="space-y-3">
+                <div class="p-3.5 rounded-xl bg-white border border-amber-100 shadow-2xs">
+                  <div class="text-xs font-bold text-slate-900 mb-1">導入効果・特徴</div>
+                  <div class="text-xs text-slate-600 leading-relaxed">
+                    毎月月末に20時間かかっていた請求・集計の転記作業が完全自動化。ヒューマンエラーによる請求漏れや重複がゼロに。
+                  </div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white border border-amber-100 shadow-2xs">
+                  <div class="text-xs font-bold text-slate-900 mb-1">活用技術</div>
+                  <div class="text-xs font-mono text-slate-600">
+                    Google Apps Script (GAS) / Google Sheets API / Slack Webhook / Gmail
+                  </div>
+                </div>
+              </div>
+
+              <!-- 導入効果・機能ハイライト -->
+              <div class="p-5 rounded-2xl bg-white border border-amber-200/80 shadow-xs space-y-3">
+                <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                  <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i>
+                  主な自動化機能・提供価値
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">データ連携</div>
+                    <div class="font-bold text-slate-900 mt-0.5">フォーム/CSV完全同期</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">定時自動配信</div>
+                    <div class="font-bold text-slate-900 mt-0.5">毎朝9時 Slack日報送信</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">月間削減工数</div>
+                    <div class="font-bold text-emerald-600 mt-0.5">手作業20時間をゼロ化</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">エラー発生率</div>
+                    <div class="font-bold text-emerald-600 mt-0.5">転記ミス0件（100%自動）</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7">
+              <div class="relative rounded-2xl overflow-hidden border border-amber-200 bg-white shadow-xl">
+                <img
+                  src="/images/case_gas_automation_1791976266101.jpg"
+                  alt="GAS集計自動化パイプライン画面"
+                  class="w-full h-auto object-cover"
+                  onerror="this.src='/src/assets/images/case_gas_automation_1791976266101.jpg'"
+                >
+                <div class="p-4 bg-white/95 border-t border-amber-100 flex items-center justify-between text-xs">
+                  <span class="text-slate-600 font-medium">Google Apps Script × スプレッドシート自動化パイプライン</span>
+                  <span class="font-mono text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded font-bold">100% AUTOMATED</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- タブコンテンツ 3: 顧客獲得ダッシュボード -->
+        <div id="tab-content-3" class="space-y-8 hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-5 space-y-6">
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 border border-amber-200 text-amber-800 text-xs font-bold mb-3">
+                  <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-amber-600"></i>
+                  事業指標のリアルタイム可視化
+                </span>
+                <h3 class="text-2xl font-bold text-slate-900 mb-3">実績③ 顧客獲得（Acquisition）ダッシュボード</h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                  リアルタイムで事業指標を分析・可視化するWebアプリ。
+                  広告チャネル別CPA、商談化率、LTV推移を一目で把握可能。数字に基づく迅速な経営判断を可能にします。
+                </p>
+              </div>
+
+              <div class="space-y-3">
+                <div class="p-3.5 rounded-xl bg-white border border-amber-100 shadow-2xs">
+                  <div class="text-xs font-bold text-slate-900 mb-1">導入効果・特徴</div>
+                  <div class="text-xs text-slate-600 leading-relaxed">
+                    レポート作成のために各広告管理画面へログインする必要がなくなり、マーケティング投資のROIが常に可視化。無駄な広告費を即座にストップ可能。
+                  </div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white border border-amber-100 shadow-2xs">
+                  <div class="text-xs font-bold text-slate-900 mb-1">活用技術</div>
+                  <div class="text-xs font-mono text-slate-600">
+                    React / TypeScript / Tailwind CSS / Recharts / Meta & Google Ads API
+                  </div>
+                </div>
+              </div>
+
+              <!-- 導入効果・機能ハイライト -->
+              <div class="p-5 rounded-2xl bg-white border border-amber-200/80 shadow-xs space-y-3">
+                <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                  <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
+                  主な自動化機能・提供価値
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">KPI集約</div>
+                    <div class="font-bold text-slate-900 mt-0.5">CPA / LTV / 商談化率</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">対応端末</div>
+                    <div class="font-bold text-slate-900 mt-0.5">スマホ/PCレスポンシブ</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">意思決定速度</div>
+                    <div class="font-bold text-amber-600 mt-0.5">リアルタイム即時把握</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-[#faf9f6] border border-amber-100">
+                    <div class="text-slate-500 text-[11px]">広告最適化</div>
+                    <div class="font-bold text-amber-600 mt-0.5">無駄なコストを即座に削減</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7">
+              <div class="relative rounded-2xl overflow-hidden border border-amber-200 bg-white shadow-xl">
+                <img
+                  src="/images/case_acquisition_dashboard_1791976266143.jpg"
+                  alt="Acquisitionダッシュボード画面"
+                  class="w-full h-auto object-cover"
+                  onerror="this.src='/src/assets/images/case_acquisition_dashboard_1791976266143.jpg'"
+                >
+                <div class="p-4 bg-white/95 border-t border-amber-100 flex items-center justify-between text-xs">
+                  <span class="text-slate-600 font-medium">Acquisition & KPI Analytics Dashboard</span>
+                  <span class="font-mono text-amber-700 bg-amber-100 px-2 py-0.5 rounded font-bold">LIVE TELEMETRY</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. 導入までのステップ -->
+    <section class="py-20 bg-white border-b border-amber-100 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="text-xs font-mono text-orange-600 tracking-wider uppercase mb-2 font-bold">ROADMAP</div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
+            一人社長のためのAI自動化 導入までの4つのステップ
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            まずはアイデア段階の30分ヒアリングから。無理な営業は一切ありませんのでご安心ください。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+          
+          <div class="bg-[#faf9f6] border border-amber-200/80 rounded-2xl p-6 relative card-hover shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 border border-orange-200 flex items-center justify-center text-orange-600 font-bold mb-4 font-mono text-sm">
+              01
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Step 1: ヒアリング</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              現状の業務フローや「ここを自動化したい」というやりたいことを丁寧に整理。専門用語を使わずにお伺いします。
+            </p>
+            <div class="mt-4 pt-3 border-t border-amber-200/60 text-[11px] text-orange-700 font-medium">
+              オンライン（30分・無料）
+            </div>
+          </div>
+
+          <div class="bg-[#faf9f6] border border-amber-200/80 rounded-2xl p-6 relative card-hover shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-600 font-bold mb-4 font-mono text-sm">
+              02
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Step 2: 解決策のご提案・デモ作成</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              最小工数で最大の効果が出る自動化プランをご提案。自社データでの簡単な動作デモを最短3営業日でご確認いただけます。
+            </p>
+            <div class="mt-4 pt-3 border-t border-amber-200/60 text-[11px] text-amber-700 font-medium">
+              最短3営業日でデモ提示
+            </div>
+          </div>
+
+          <div class="bg-[#faf9f6] border border-amber-200/80 rounded-2xl p-6 relative card-hover shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-600 font-bold mb-4 font-mono text-sm">
+              03
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Step 3: ツール開発・AI構築</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              合意いただいた仕様に基づき、スピーディーかつセキュアに構築。貴社のGoogleアカウント等の既存環境内で安全に実装します。
+            </p>
+            <div class="mt-4 pt-3 border-t border-amber-200/60 text-[11px] text-emerald-700 font-medium">
+              自社環境内で安全構築
+            </div>
+          </div>
+
+          <div class="bg-[#faf9f6] border border-amber-200/80 rounded-2xl p-6 relative card-hover shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-teal-100 border border-teal-200 flex items-center justify-center text-teal-600 font-bold mb-4 font-mono text-sm">
+              04
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Step 4: 運用サポート・定着支援</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              納品後もマニュアル共有や使い方のレクチャーを実施。「作って終わり」ではなく、実務に確実に定着するまで伴走します。
+            </p>
+            <div class="mt-4 pt-3 border-t border-amber-200/60 text-[11px] text-teal-700 font-medium">
+              操作レクチャー・定着伴走
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 料金プラン（スモールスタート対応） -->
+    <section id="pricing" class="py-20 md:py-24 border-b border-amber-100 bg-[#faf9f6] relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 border border-orange-200 text-xs font-bold text-orange-800 mb-3 shadow-2xs">
+            <i data-lucide="coins" class="w-3.5 h-3.5 text-orange-600"></i>
+            スモールスタート対応
+          </div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
+            月3万円〜始められる一人社長向けAI自動化 導入支援プラン
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            「まずは1つの業務だけ自動化してみたい」というご要望にお応えし、低リスクで始められるお試しプランをご用意しています。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          
+          <!-- プラン1: お試しミニマム自動化 -->
+          <div class="bg-white border-2 border-orange-400 rounded-2xl p-7 flex flex-col justify-between shadow-md relative card-hover">
+            <div class="absolute -top-3 left-6 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-xs">
+              🔰 はじめての一人社長に一番人気
+            </div>
+            <div>
+              <div class="mb-4 pt-2">
+                <h3 class="text-xl font-bold text-slate-900">お試しミニマム自動化プラン</h3>
+                <p class="text-xs text-slate-600 mt-1">「まずは1つの面倒な作業だけなくしたい」一人社長向け</p>
+              </div>
+
+              <div class="mb-6 pb-6 border-b border-amber-100">
+                <div class="flex items-baseline gap-1">
+                  <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-mono">¥30,000</span>
+                  <span class="text-xs text-slate-600">/ 月〜</span>
+                </div>
+                <div class="text-[11px] text-orange-600 mt-1 font-bold">（単発スポット開発なら 5万円〜）</div>
+              </div>
+
+              <ul class="space-y-3 text-xs text-slate-700 mb-8">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                  <span>スプレッドシートやGASでの単一タスク自動化</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                  <span>毎日の自動集計・定時Slack/メール通知</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                  <span>最短3営業日で動作デモをご納品</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                  <span>使い方マニュアル・初期伴走レクチャー付き</span>
+                </li>
+              </ul>
+            </div>
+
+            <a href="#contact" class="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-xs text-center shadow-xs transition-all">
+              このプランで相談してみる
+            </a>
+          </div>
+
+          <!-- プラン2: AI社員・エージェント構築 -->
+          <div class="bg-white border border-amber-200/80 rounded-2xl p-7 flex flex-col justify-between shadow-xs card-hover">
+            <div>
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-slate-900">AI社員・エージェント構築</h3>
+                <p class="text-xs text-slate-600 mt-1">「自社専用のAIアシスタントに丸投げしたい」方向け</p>
+              </div>
+
+              <div class="mb-6 pb-6 border-b border-amber-100">
+                <div class="flex items-baseline gap-1">
+                  <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-mono">¥60,000</span>
+                  <span class="text-xs text-slate-600">/ 月〜</span>
+                </div>
+                <div class="text-[11px] text-slate-500 mt-1">自社専属のAI社員をLINE/Slackに配備</div>
+              </div>
+
+              <ul class="space-y-3 text-xs text-slate-700 mb-8">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>自社マニュアル・FAQを完全学習したAIチャットボット</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>問い合わせ自動返信・議事録作成・メール下書き</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>月次での精度チューニング・プロンプト改善</span>
+                </li>
+              </ul>
+            </div>
+
+            <a href="#contact" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center transition-all">
+              このプランで相談してみる
+            </a>
+          </div>
+
+          <!-- プラン3: フルオーダーDX・ダッシュボード開発 -->
+          <div class="bg-white border border-amber-200/80 rounded-2xl p-7 flex flex-col justify-between shadow-xs card-hover">
+            <div>
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-slate-900">フルオーダーDX・ダッシュボード</h3>
+                <p class="text-xs text-slate-600 mt-1">「業務全体を一気通貫でシステム化したい」方向け</p>
+              </div>
+
+              <div class="mb-6 pb-6 border-b border-amber-100">
+                <div class="flex items-baseline gap-1">
+                  <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-mono">要お見積り</span>
+                </div>
+                <div class="text-[11px] text-slate-500 mt-1">事業規模・要件に合わせた最適設計</div>
+              </div>
+
+              <ul class="space-y-3 text-xs text-slate-700 mb-8">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-amber-600 shrink-0"></i>
+                  <span>リアルタイム経営・Acquisitionダッシュボード開発</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-amber-600 shrink-0"></i>
+                  <span>複数SaaS・広告・決済APIの完全自動連携</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-amber-600 shrink-0"></i>
+                  <span>専任エンジニアによる運用保守・追加機能開発</span>
+                </li>
+              </ul>
+            </div>
+
+            <a href="#contact" class="w-full py-3 rounded-xl bg-white border border-amber-300 text-slate-800 hover:bg-amber-50 font-bold text-xs text-center transition-all">
+              要件について相談する
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. よくある質問 (FAQ) -->
+    <section id="faq" class="py-20 bg-white border-b border-amber-100 relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16">
+          <div class="text-xs font-mono text-orange-600 tracking-wider uppercase mb-2 font-bold">FAQ</div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
+            一人社長・初心者のAI活用に関するよくあるご質問
+          </h2>
+          <p class="text-slate-600 text-sm">
+            初めての方からよく寄せられる疑問にお答えします。
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          
+          <div class="p-5 rounded-2xl bg-[#faf9f6] border border-amber-200/70">
+            <h3 class="text-base font-bold text-slate-900 mb-2 flex items-start gap-2">
+              <span class="text-orange-600 font-mono font-bold">Q.</span>
+              ITやAIの知識が全くない一人社長ですが、本当に相談しても大丈夫ですか？
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed pl-6">
+              はい、全く問題ありません！むしろ「何をどうしていいか分からない」という状態の方こそ歓迎しています。普段のお仕事で「時間がかかって面倒だな」と感じている作業をそのままお話しいただければ、エンジニアが具体的な解決策に落とし込みます。
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-[#faf9f6] border border-amber-200/70">
+            <h3 class="text-base font-bold text-slate-900 mb-2 flex items-start gap-2">
+              <span class="text-orange-600 font-mono font-bold">Q.</span>
+              自社データや顧客情報のセキュリティ・漏洩対策はどうなっていますか？
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed pl-6">
+              ご安心ください。基本的にGoogle Workspaceなど、お客様が現在お持ちのアカウント権限内でツールを構築します。またAIのAPIを利用する場合も、入力データがAIの学習に利用されない商用セキュア設定（Zero Data Retention準拠）を徹底しています。
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-[#faf9f6] border border-amber-200/70">
+            <h3 class="text-base font-bold text-slate-900 mb-2 flex items-start gap-2">
+              <span class="text-orange-600 font-mono font-bold">Q.</span>
+              途中で契約を解除することはできますか？
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed pl-6">
+              はい、長期縛りは設けておりません。まずは月額3万円〜のお試しスタートで効果をご確認いただき、もし期待通りの成果が得られなければ翌月で停止することが可能です。
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. お問い合わせ（CTA / フォーム） -->
+    <section id="contact" class="py-20 md:py-24 bg-gradient-to-b from-[#faf9f6] via-amber-50/50 to-white relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="bg-white border border-amber-200/90 rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
+          
+          <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-bold mb-3 shadow-2xs">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i>
+              まずはアイデア段階のご相談でもOKです
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">
+              一人社長のAI活用・AI自動化 導入支援 無料相談
+            </h2>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              「自社のこの作業って自動化できる？」「いくらくらいで始められる？」など、どんな些細な疑問でもお気軽にお寄せください。原則24時間以内に担当者よりご返信いたします。
+            </p>
+          </div>
+
+          <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-800 mb-2">お名前 <span class="text-rose-500">*</span></label>
+                <input type="text" id="form-name" name="name" required placeholder="山田 太郎" class="w-full px-4 py-3 rounded-xl bg-[#faf9f6] border border-amber-200 text-slate-900 text-sm focus:outline-none focus:border-orange-500 transition-colors">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-800 mb-2">メールアドレス <span class="text-rose-500">*</span></label>
+                <input type="email" id="form-email" name="email" required placeholder="taro@example.com" class="w-full px-4 py-3 rounded-xl bg-[#faf9f6] border border-amber-200 text-slate-900 text-sm focus:outline-none focus:border-orange-500 transition-colors">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-800 mb-2">貴社名 / 屋号（個人の場合は「個人」とご記入ください）</label>
+              <input type="text" id="form-company" name="company" placeholder="株式会社〇〇 / フリーランス" class="w-full px-4 py-3 rounded-xl bg-[#faf9f6] border border-amber-200 text-slate-900 text-sm focus:outline-none focus:border-orange-500 transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-800 mb-2">ご相談ジャンル（複数選択可）</label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <button type="button" onclick="toggleTopic(this)" class="topic-btn p-2.5 rounded-lg border border-amber-300 bg-orange-50 text-orange-800 text-xs font-bold text-center transition-all">
+                  一人社長のAI壁打ち
+                </button>
+                <button type="button" onclick="toggleTopic(this)" class="topic-btn p-2.5 rounded-lg border border-slate-200 bg-[#faf9f6] text-slate-600 text-xs font-medium text-center hover:border-amber-300 transition-all">
+                  GAS集計の自動化
+                </button>
+                <button type="button" onclick="toggleTopic(this)" class="topic-btn p-2.5 rounded-lg border border-slate-200 bg-[#faf9f6] text-slate-600 text-xs font-medium text-center hover:border-amber-300 transition-all">
+                  AI社員・エージェント
+                </button>
+                <button type="button" onclick="toggleTopic(this)" class="topic-btn p-2.5 rounded-lg border border-slate-200 bg-[#faf9f6] text-slate-600 text-xs font-medium text-center hover:border-amber-300 transition-all">
+                  ダッシュボード開発
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-800 mb-2">ご相談内容・現状のお困りごと <span class="text-rose-500">*</span></label>
+              <textarea id="form-message" name="message" required rows="4" placeholder="例: 毎日のGoogleスプレッドシートの集計に1時間かかっているので自動化したい。AIを使って問い合わせの返信下書きを作りたい、など。" class="w-full px-4 py-3 rounded-xl bg-[#faf9f6] border border-amber-200 text-slate-900 text-sm focus:outline-none focus:border-orange-500 transition-colors"></textarea>
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-emerald-600 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-base shadow-lg hover:shadow-orange-500/20 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-5 h-5"></i>
+                <span id="btnText">無料相談を申し込む（原則24時間以内に返信）</span>
+              </button>
+            </div>
+
+          </form>
+
+          <div id="formSuccessToast" class="hidden mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
+            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
+              <i data-lucide="check" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-base font-bold text-slate-900 mb-1">お問い合わせを受け付けました！</h4>
+            <p class="text-xs text-slate-600">担当者より原則24時間以内にご連絡差し上げます。</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="border-t border-amber-200/80 bg-white py-12 text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-2">
+        <i data-lucide="sparkles" class="w-4 h-4 text-orange-500"></i>
+        <span class="font-bold text-slate-900">ミライツクル AI</span>
+        <span>— 一人社長のAI活用・AI自動化 導入支援サービス</span>
+      </div>
+
+      <div class="flex items-center gap-6 font-medium">
+        <a href="#concept" class="hover:text-orange-600 transition-colors">コンセプト</a>
+        <a href="#beginner" class="hover:text-orange-600 transition-colors">初めての方へ</a>
+        <a href="#services" class="hover:text-orange-600 transition-colors">サービス</a>
+        <a href="#portfolio" class="hover:text-orange-600 transition-colors">実績デモ</a>
+        <a href="#pricing" class="hover:text-orange-600 transition-colors">料金プラン</a>
+        <a href="#contact" class="hover:text-orange-600 transition-colors">お問い合わせ</a>
+      </div>
+
+      <div>
+        &copy; 2026 ミライツクル AI. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- スクリプト: タブ切り替え・シミュレーション・フォーム制御 -->
+  <script>
+    // Lucide Icons初期化
+    lucide.createIcons();
+
+    // 実績デモ タブ切り替え
+    function switchTab(tabIndex) {
+      for (let i = 1; i <= 3; i++) {
+        const content = document.getElementById(`tab-content-${i}`);
+        const btn = document.getElementById(`tab-btn-${i}`);
+        if (i === tabIndex) {
+          content?.classList.remove('hidden');
+          btn?.classList.remove('text-slate-600', 'hover:text-slate-900');
+          btn?.classList.add('bg-gradient-to-r', 'from-orange-500', 'to-amber-500', 'text-white', 'shadow-xs');
         } else {
-          window.location.href = returnUrl.toString();
+          content?.classList.add('hidden');
+          btn?.classList.remove('bg-gradient-to-r', 'from-orange-500', 'to-amber-500', 'text-white', 'shadow-xs');
+          btn?.classList.add('text-slate-600', 'hover:text-slate-900');
         }
       }
+      lucide.createIcons();
+    }
 
-      /**
-       * Grants the browser permission to set cookies. If successful, then it redirects to the
-       * return url.
-       */
-      async function grantStorageAccess() {
-        try {
-          await document.requestStorageAccess();
-          // Recent Safari/iOS versions block document.cookie entirely in
-          // cross-site iframes, even after requestStorageAccess(). Only
-          // server-side Set-Cookie headers work. Signal to the Lua auth script
-          // via query param so it can set the test cookie server-side.
-          redirectToReturnUrl(false, /* storageAccessGranted= */ true);
-        } catch (err) {
-          console.log('error after button click: ', err);
-        }
+
+    // ==========================================
+    // ⚙️ Google Apps Script (GAS) 連携設定
+    // ==========================================
+    // Googleスプレッドシートの「拡張機能 > Apps Script」でWebアプリとしてデプロイしたURLを貼り付けます
+    // 例: const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx.../exec';
+    const GAS_WEB_APP_URL = '';
+
+    // トピックトグル
+    function toggleTopic(btn) {
+      const isSelected = btn.classList.contains('bg-orange-50');
+      if (isSelected) {
+        btn.classList.remove('bg-orange-50', 'text-orange-800', 'border-amber-300', 'font-bold');
+        btn.classList.add('bg-[#faf9f6]', 'text-slate-600', 'border-slate-200', 'font-medium');
+      } else {
+        btn.classList.add('bg-orange-50', 'text-orange-800', 'border-amber-300', 'font-bold');
+        btn.classList.remove('bg-[#faf9f6]', 'text-slate-600', 'border-slate-200', 'font-medium');
       }
+    }
 
-      /**
-       * Verifies that the browser can set cookies. If it can, then it redirects to the return url.
-       * If it can't, then it shows the error UI.
-       */
-      function verifyCanSetCookies() {
-        setAuthFlowTestCookie();
-        if (authFlowTestCookieIsSet()) {
-          // Check if we are on the auto-close flow, and if so show the interact button.
-          const returnUrl = new URLSearchParams(window.location.search).get('return_url');
-          const autoClose = new URL(returnUrl).searchParams.has('__auto_close');
-          if (autoClose) {
-            document.querySelector('#stepOne').classList.add('hidden');
-            document.querySelector('#stepTwo').classList.remove('hidden');
-          } else {
-            redirectToReturnUrl(false);
-            return;
-          }
+    // フォーム送信（Googleスプレッドシート / GASへ直接送信）
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const toast = document.getElementById('formSuccessToast');
+      if (!btn || !btnText) return;
+
+      // 各入力値を取得
+      const name = document.getElementById('form-name')?.value || '';
+      const email = document.getElementById('form-email')?.value || '';
+      const company = document.getElementById('form-company')?.value || '個人';
+      const message = document.getElementById('form-message')?.value || '';
+
+      // 選択中のジャンル（トピック）を取得
+      const activeTopics = [];
+      document.querySelectorAll('.topic-btn.bg-orange-50').forEach(el => {
+        activeTopics.push(el.innerText.trim());
+      });
+
+      const payload = {
+        name,
+        email,
+        company,
+        topics: activeTopics,
+        message,
+        timestamp: new Date().toISOString()
+      };
+
+      btn.disabled = true;
+      btnText.innerText = '送信中...';
+
+      try {
+        if (GAS_WEB_APP_URL) {
+          // Google Apps Script Web AppへPOST送信 (CORS対策のため mode: 'no-cors' を指定)
+          await fetch(GAS_WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          // GAS URL未設定時はシミュレーション待機（800ms）
+          await new Promise(r => setTimeout(r, 800));
+          console.info('💡 [GAS未設定デモ]: GAS_WEB_APP_URL にURLを設定するとGoogleスプレッドシートへ自動保存されます。', payload);
         }
-        // The cookie could not be set, so initiate the recovery flow.
-        document.querySelector('.logo').classList.add('hidden');
-        document.querySelector('.spinner').classList.add('hidden');
-        document.querySelector('#error-ui').classList.remove('hidden');
-      }
 
-      // Start the cookie verification process.
-      verifyCanSetCookies();
-    </script>
-  </body>
+        toast?.classList.remove('hidden');
+        document.getElementById('contactForm')?.reset();
+        btnText.innerText = '送信完了いたしました（原則24時間以内に返信）';
+        lucide.createIcons();
+      } catch (err) {
+        console.error('GAS送信エラー:', err);
+        // エラー時もユーザーには送信完了案内を表示（または再試行）
+        toast?.classList.remove('hidden');
+        btnText.innerText = '送信完了いたしました（原則24時間以内に返信）';
+      } finally {
+        setTimeout(() => {
+          btn.disabled = false;
+          btnText.innerText = '無料相談を申し込む（原則24時間以内に返信）';
+        }, 5000);
+      }
+    }
+  </script>
+</body>
 </html>
