@@ -1278,14 +1278,7 @@
         activeTopics.push(el.innerText.trim());
       });
 
-      const payload = {
-        name,
-        email,
-        company,
-        topics: activeTopics,
-        message,
-        timestamp: new Date().toISOString()
-      };
+      const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxXXXXXXXXXXXXXX/exec';
 
       btn.disabled = true;
       btnText.innerText = '送信中...';
